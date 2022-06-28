@@ -1,0 +1,15 @@
+{
+	"name": "interview_task",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon server.js"
+	},
+	"dependencies": {
+		"body-parser": "^1.20.0",
+		"cors": "^2.8.5",
+		"express": "^4.18.1",
+		"mongoose": "^6.4.1",
+		"nodemon": "^2.0.18"
+	}
+}
