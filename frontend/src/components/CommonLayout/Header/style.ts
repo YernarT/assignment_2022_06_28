@@ -127,6 +127,12 @@ export const HeaderStyled = styled.header<{ navPanelVisible: boolean }>`
 			gap: 16px;
 
 			a {
+				display: block;
+				padding: 8px;
+				border-radius: ${({ theme }) => theme.shape.borderRadius};
+				background-color: rgba(0, 0, 0, 0.85);
+
+				text-align: center;
 				text-shadow: 0 0 4px ${({ theme }) => theme.palette.primary};
 			}
 		}
