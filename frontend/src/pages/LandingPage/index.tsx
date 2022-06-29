@@ -5,7 +5,11 @@ import { useEffect, useRef } from 'react';
 import { Typography } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 // 样式组件
-import { LandingPageStyled, IntroductionSectionStyled } from './style';
+import {
+	LandingPageStyled,
+	IntroductionSectionStyled,
+	CardSectionStyled,
+} from './style';
 
 // 业务库
 import { useVh } from '@/hooks';
@@ -35,10 +39,17 @@ export default function LandingPage() {
 				<DownOutlined
 					className="down-icon"
 					onClick={() => {
-						window.scrollTo(0, 0);
+						document
+							.getElementById('c-layout')
+							?.scrollTo(
+								0,
+								document.documentElement?.clientHeight || window.innerHeight,
+							);
 					}}
 				/>
 			</IntroductionSectionStyled>
+
+			<CardSectionStyled></CardSectionStyled>
 		</LandingPageStyled>
 	);
 }
