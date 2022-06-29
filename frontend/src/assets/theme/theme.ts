@@ -57,11 +57,11 @@ const theme: DefaultTheme = {
 
 		iconAppearance: {
 			color: '#fff',
-			fontSize: '1.5rem',
+			fontSize: '1.6rem',
 
 			apply: () => css`
 				color: #fff;
-				font-size: 1.5rem;
+				font-size: 1.6rem;
 			`,
 		},
 	},
