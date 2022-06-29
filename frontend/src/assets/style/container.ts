@@ -25,10 +25,10 @@ export default (attr: conatinerAttr = 'padding') => css`
 	@media screen and (max-width: 600px) {
 		${attr === 'padding'
 			? `
-	padding: 0 0.15rem;
+	padding: 0 1.5rem;
 	`
 			: `
-	width: calc(100% - 0.15rem * 2);
+	width: calc(100% - 1.5rem * 2);
 	`}
 	}
 

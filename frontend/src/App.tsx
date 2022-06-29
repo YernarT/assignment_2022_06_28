@@ -1,6 +1,3 @@
-// React
-import { BrowserRouter } from 'react-router-dom';
-
 // 组件
 import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
@@ -11,14 +8,12 @@ import { theme } from '@/assets/theme';
 import ruRU from 'antd/lib/locale/ru_RU';
 
 const App = () => (
-	<BrowserRouter>
-		<StyledThemeProvider theme={theme}>
-			<AntdConfigProvider locale={ruRU}>
-				<CssBaseLine />
-				<CommonLayout />
-			</AntdConfigProvider>
-		</StyledThemeProvider>
-	</BrowserRouter>
+	<StyledThemeProvider theme={theme}>
+		<AntdConfigProvider locale={ruRU}>
+			<CssBaseLine />
+			<CommonLayout />
+		</AntdConfigProvider>
+	</StyledThemeProvider>
 );
 
 export default App;
