@@ -5,5 +5,5 @@ export const CommonLayoutStyled = styled.div`
 	height: 100%;
 
 	position: relative;
-	overflow: hidden;
+	overflow: hidden auto;
 `;
