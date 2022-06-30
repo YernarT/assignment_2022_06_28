@@ -9,6 +9,8 @@ export interface ArticleType4Create {
 }
 
 export interface ArticleType4Read {
+	_id: string;
+	__v: number;
 	title: string;
 	content: string;
 }

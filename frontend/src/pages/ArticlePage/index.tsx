@@ -71,14 +71,15 @@ export default function ArticlePage() {
 					bordered
 					itemLayout="vertical"
 					size="large"
-					dataSource={articles.map(({ title, content }) => ({
+					dataSource={articles.map(({ _id, title, content }) => ({
+						_id,
 						title,
 						content,
 						avatar: 'https://joeschmoe.io/api/v1/random',
 					}))}
 					renderItem={item => (
 						<List.Item
-							key={item.title}
+							key={item._id}
 							actions={[
 								<IconText
 									icon={StarOutlined}
@@ -105,7 +106,17 @@ export default function ArticlePage() {
 							}>
 							<List.Item.Meta
 								avatar={<Avatar src={item.avatar} />}
-								title={<Typography.Text editable>{item.title}</Typography.Text>}
+								title={
+									<Typography.Text
+										editable={{
+											maxLength: 20,
+											onEnd: () => {
+												console.log(this);
+											},
+										}}>
+										{item.title}
+									</Typography.Text>
+								}
 							/>
 							<Typography.Paragraph editable>
 								{item.content}
