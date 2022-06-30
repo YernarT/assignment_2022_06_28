@@ -1,16 +1,47 @@
 // 类型
 import type { ModalProps } from 'antd';
+import type {
+	ArticleType4Create,
+	ArticleType4Read,
+} from '@/service/api/article-api';
+
+// 业务库
+import { useRequest } from 'ahooks';
+import { reqCreateArticle } from '@/service/api/article-api';
 
 // 组件
-import { Form, Input, Button, Space } from 'antd';
+import { Form, Input, Button, Space, message as antdMessage } from 'antd';
 // 样式组件
 import { CreateArticleModalStyled } from './style';
 
-export default function CreateArticleModal(props: ModalProps) {
+interface CreateArticleModalProps extends ModalProps {
+	afterCreate: (article: ArticleType4Read) => void;
+}
+
+export default function CreateArticleModal({
+	afterCreate,
+	...props
+}: CreateArticleModalProps) {
 	const [form] = Form.useForm();
 
-	const onFinish = (values: any) => {
-		console.log(values);
+	// create article
+	const { runAsync: createArticle } = useRequest(
+		(data: ArticleType4Create) => reqCreateArticle(data),
+		{
+			manual: true,
+		},
+	);
+
+	const onFinish = (values: ArticleType4Create) => {
+		createArticle(values).then(
+			article => {
+				// @ts-ignore 还不会 axios+ts 注释类型
+				afterCreate(article);
+			},
+			err => {
+				antdMessage.error(err.message);
+			},
+		);
 	};
 
 	const onFill = () => {

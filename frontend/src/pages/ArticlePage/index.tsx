@@ -1,19 +1,19 @@
+// 类型
+import type { ArticleType4Read } from '@/service/api/article-api';
+
 // React
 import React, { useState } from 'react';
+
+// 业务库
+import { useRequest } from 'ahooks';
+import { reqGetArticles } from '@/service/api/article-api';
 
 // 组件
 import { Avatar, List, Space, Typography, PageHeader, Button } from 'antd';
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
 import { CreateArticleModal } from '@/components';
-// 样式组件
 import { ArticlePageStyled, ArticleListStyled } from './style';
-
-const data = Array.from({ length: 23 }).map((_, i) => ({
-	title: `ant design part ${i}`,
-	avatar: 'https://joeschmoe.io/api/v1/random',
-	content:
-		'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-}));
+// 样式组件
 
 const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 	<Space>
@@ -23,8 +23,26 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 );
 
 export default function ArticlePage() {
+	// create article modal state
 	const [createArticleModalVisible, setCreateArticleModalVisible] =
 		useState(false);
+
+	// articles state
+	const [articles, setArticles] = useState<ArticleType4Read[]>([]);
+
+	// get articles on mount
+	useRequest(reqGetArticles, {
+		onSuccess(articles) {
+			// @ts-ignore 还不会 axios+ts 注释类型
+			setArticles(articles);
+		},
+	});
+
+	// create article
+	const handleCreateArticle = (article: ArticleType4Read) => {
+		setArticles(prevState => [...prevState, article]);
+		setCreateArticleModalVisible(false);
+	};
 
 	return (
 		<ArticlePageStyled>
@@ -46,13 +64,18 @@ export default function ArticlePage() {
 				<CreateArticleModal
 					visible={createArticleModalVisible}
 					onCancel={() => setCreateArticleModalVisible(false)}
+					afterCreate={handleCreateArticle}
 				/>
 
 				<List
 					bordered
 					itemLayout="vertical"
 					size="large"
-					dataSource={data}
+					dataSource={articles.map(({ title, content }) => ({
+						title,
+						content,
+						avatar: 'https://joeschmoe.io/api/v1/random',
+					}))}
 					renderItem={item => (
 						<List.Item
 							key={item.title}
