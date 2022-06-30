@@ -11,29 +11,4 @@ server
 
 server.use('/api', require('./api/article'));
 
-// app.get('/users', (req, res) => {
-// 	res.json(users);
-// });
-
-// app.get('/users/:id', (req, res) => {
-// 	let userId = req.params.id;
-
-// 	let user = users.find(user => user.id === Number(userId));
-
-// 	if (user) {
-// 		res.json(user);
-// 	} else {
-// 		res.send('User not found');
-// 	}
-// });
-
-// app.post('/users', (req, res) => {
-// 	let user = req.body;
-
-// 	user.id = users.length;
-// 	users.push(user);
-
-// 	res.send('User is added to the database');
-// });
-
 module.exports = server;
