@@ -14,7 +14,7 @@ const ArticlePage = lazy(() => import('@/pages/ArticlePage'));
 export default function CommonLayout() {
 	return (
 		<BrowserRouter>
-			<CommonLayoutStyled>
+			<CommonLayoutStyled id="c-layout">
 				<Header />
 
 				<Suspense fallback={<div>Loading...</div>}>
