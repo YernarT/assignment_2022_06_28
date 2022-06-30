@@ -55,6 +55,23 @@ router.put('/articles/:id', async (req, res) => {
 });
 
 // Delete
-router.delete('/articles', async (req, res) => {});
+router.delete('/articles/:id', async (req, res) => {
+	let articleId = req.params.id;
+	let article;
+
+	try {
+		article = await ArticleModel.findById(articleId);
+	} catch (err) {
+		res.status(400).json({ 'message': 'Ресурс не существует' });
+	}
+
+	if (article) {
+		await article.remove();
+
+		res.status(200).json({});
+	} else {
+		res.status(400).json({ 'message': 'Ресурс не существует' });
+	}
+});
 
 module.exports = router;
