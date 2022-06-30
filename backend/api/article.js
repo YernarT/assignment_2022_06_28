@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const mongoose = require('mongoose');
 const ArticleModel = require('../db/schema');
 
 // Read
