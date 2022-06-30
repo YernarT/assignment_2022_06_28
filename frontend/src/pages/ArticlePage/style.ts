@@ -5,6 +5,7 @@ import { container } from '@/assets/style';
 
 export const ArticlePageStyled = styled.div`
 	${container()}
+	min-height: 100vh;
 
 	background-color: #b8c6db;
 `;
