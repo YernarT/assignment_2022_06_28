@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-DATABASE_URL = 'mongodb://localhost:27017/interview-task';
+// DATABASE_URL = 'mongodb://localhost:27017/interview-task';
+DATABASE_URL = 'mongodb+srv://root:password-0@interview-task-cluster.jlvxgis.mongodb.net/?retryWrites=true&w=majority';
 const mongoString = DATABASE_URL;
 mongoose.connect(mongoString);
 
