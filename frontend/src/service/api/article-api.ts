@@ -8,6 +8,12 @@ export interface ArticleType4Create {
 	content: string;
 }
 
+export interface ArticleType4CreateSingle {
+	_id: string;
+	title: string;
+	content: string;
+}
+
 export interface ArticleType4Read {
 	_id: string;
 	__v: number;
@@ -32,11 +38,12 @@ export const reqGetArticles = (): Promise<
 
 // Update
 export const reqUpdateArticle = (
-	data: ArticleType4Create,
+	data: ArticleType4CreateSingle,
 ): Promise<AxiosResponse<ArticleType4Read, ErrorResponseType>> =>
-	apiServerInstance.put('/api/articles/', data);
+	apiServerInstance.put(`/api/articles/${data._id}`, data);
 
 // Delete
-export const reqRemoveArticle = (): Promise<
-	AxiosResponse<{}, ErrorResponseType>
-> => apiServerInstance.delete('/api/articles/');
+export const reqRemoveArticle = (
+	_id: string,
+): Promise<AxiosResponse<{}, ErrorResponseType>> =>
+	apiServerInstance.delete(`/api/articles/${_id}`);
