@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const apiServerInstance = axios.create({
-	baseURL: 'http://localhost:8000',
+	// baseURL: 'http://localhost:8000',
+	baseURL: 'https://assignment-2022-06-28.herokuapp.com',
 	validateStatus: status => status >= 200 && status < 300,
 });
 
