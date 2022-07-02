@@ -1,12 +1,16 @@
 // 类型
-import type { ArticleType4Read } from '@/service/api/article-api';
+import {
+	ArticleType4CreateSingle,
+	ArticleType4Create,
+	ArticleType4Read,
+} from '@/service/api/article-api';
 
 // React
 import React, { useState } from 'react';
 
 // 业务库
 import { useRequest } from 'ahooks';
-import { reqGetArticles } from '@/service/api/article-api';
+import { reqGetArticles, reqUpdateArticle } from '@/service/api/article-api';
 
 // 组件
 import { Avatar, List, Space, Typography, PageHeader, Button } from 'antd';
@@ -42,6 +46,23 @@ export default function ArticlePage() {
 	const handleCreateArticle = (article: ArticleType4Read) => {
 		setArticles(prevState => [...prevState, article]);
 		setCreateArticleModalVisible(false);
+	};
+
+	// update article
+	const { runAsync: updateArticle } = useRequest(
+		(data: ArticleType4CreateSingle) => reqUpdateArticle(data),
+		{
+			manual: true,
+		},
+	);
+
+	// handle update article
+	const handleUpdateArticle = (_id: string) => {
+		let article = articles.find(article => article._id === _id);
+
+		if (article) {
+			updateArticle(article);
+		}
 	};
 
 	return (
@@ -110,15 +131,41 @@ export default function ArticlePage() {
 									<Typography.Text
 										editable={{
 											maxLength: 20,
+											onChange(value) {
+												setArticles(prevState =>
+													prevState.map(article => {
+														if (article._id === item._id) {
+															article.title = value;
+														}
+														return article;
+													}),
+												);
+											},
 											onEnd: () => {
-												console.log(this);
+												handleUpdateArticle(item._id);
 											},
 										}}>
 										{item.title}
 									</Typography.Text>
 								}
 							/>
-							<Typography.Paragraph editable>
+							<Typography.Paragraph
+								editable={{
+									maxLength: 254,
+									onChange(value) {
+										setArticles(prevState =>
+											prevState.map(article => {
+												if (article._id === item._id) {
+													article.content = value;
+												}
+												return article;
+											}),
+										);
+									},
+									onEnd: () => {
+										handleUpdateArticle(item._id);
+									},
+								}}>
 								{item.content}
 							</Typography.Paragraph>
 						</List.Item>
